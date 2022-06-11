@@ -1,5 +1,5 @@
 const path = require('path')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -15,18 +15,18 @@ module.exports = {
         port: 3000,
     },
     plugins: [
-        new HtmlWebPlugin({template: './src/index.html'}),
+        new HtmlWebPlugin({ template: './src/index.html' }),
         new CleanWebpackPlugin()
     ],
     module: {
         rules: [{
-            test: /\.(css|less)$/,
-            use: ['style-loader', 'css-loader', 'less-loader']
+            test: /\.(css|s[ac]ss)$/i,
+            use: ['style-loader', 'css-loader', 'sass-loader']
         },
-            {
-                test: /\.(jpg|jpeg|png|svg)/,
-                use:['file-loader']
-            }
+        {
+            test: /\.(jpg|jpeg|png|svg)/,
+            use: ['file-loader']
+        }
         ]
     }
 }
