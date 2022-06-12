@@ -1,8 +1,7 @@
+@import "~normalize.css";
+
 body {
-  background-image: url(../img/Window.svg);
-}
-h1 {
-  background-color: gray;
+  background-image: url(../img/logo.jpg);
 }
 
 @font-face {
@@ -11,5 +10,13 @@ h1 {
 }
 
 p {
-  color: darkorange;
+  color: red;
+}
+
+h1 {
+  color: red;
+}
+
+.logo {
+  background-color: blue;
 }

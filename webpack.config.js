@@ -5,11 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { loader } = require('mini-css-extract-plugin');
 
-
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
-const filename = (ext) => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
+const filename = (ext) => isDev ? `[name]${ext}` : `[name].[contenthash]${ext}`;
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -17,12 +16,21 @@ module.exports = {
     entry: './js/index.js',
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: `./js/${filename('js')}`,
-        // publicPath: '',
+        filename: `./js/${filename('.js')}`,
+        publicPath: '',
+        assetModuleFilename: `[path]${filename('[ext]')}`    // name: `./img/${filename('[ext]')}`
+    },
+    resolve: {
+        extensions: ['.js', '.json', '.jsx', '.scss'],
+        alias: {
+            '@': path.resolve(__dirname, 'src')
+        }
     },
     devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'dist'),
+        },
         historyApiFallback: true,
-        contentBase: path.resolve(__dirname, 'dist'),
         open: true,
         compress: true,
         hot: true,
@@ -31,21 +39,19 @@ module.exports = {
     plugins: [
         new HtmlWebPlugin({
             template: path.resolve(__dirname, 'src/index.html'),
-            filename: "index.html",
+            filename: "./index.html",
             minify: {
                 collapseWhitespace: isProd
             }
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: `./css/${filename('css')}`
+            filename: `./css/${filename('.css')}`
         }),
         new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, "dist/assets")
-                }
-            ]
+            patterns: [{
+                from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, "dist/assets")
+            }]
         })
     ],
     module: {
@@ -55,7 +61,7 @@ module.exports = {
                 loader: "html-loader"
             },
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
@@ -74,21 +80,11 @@ module.exports = {
             },
             {
                 test: /\.(?:|gif|jpg|jpeg|png|svg)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: `./img/${filename('[ext]')}`
-                    }
-                }]
+                type: 'asset/resource'
             },
             {
                 test: /\.(?:|woff2)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: `./fonts/${filename('[ext]')}`
-                    }
-                }]
+                type: 'asset/resource'
             },
         ]
     }
