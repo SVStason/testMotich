@@ -1,12 +1,25 @@
-@import "~normalize.css";
+@import "_vars";
+@import "_fonts";
 
-@font-face {
-  font-family: Jost;
-  src: url(../fonts/Jost-Bold.woff2);
+html {
+  box-sizing: border-box;
 }
 
-h1 {
-  color: violet;
-  background-color: grey;
-  text-align: center;
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+.header {
+  // color: $accent;
+}
+
+.text {
+  color: #be3778;
 }
