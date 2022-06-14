@@ -2,6 +2,16 @@
 @import "_fonts";
 @import "~normalize.css";
 
+body, html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 .header {
   &__inner {
     min-height: 445px;
@@ -21,7 +31,7 @@
       text-align: center;
       text-transform: uppercase;
       color: $accent;
-      text-shadow: $accent 2px 1px, $accent 3px 1px, $accent 5px 1px;
+      text-shadow: #C64283 -2px 1px, rgba(255, 196, 221, 0.71) -3px 1px, #fff -5px 1px;
     }
   }
 }
@@ -46,7 +56,7 @@
   position: absolute;
   width: 274px;
   height: 376px;
-  left: 170px;
+  left: 166px;
   top: 10px;
 }
 
@@ -59,7 +69,7 @@
   &__text {
     margin-top: 17px;
     margin-bottom: 28px;
-    font-family: Montserrat;
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 300;
     font-size: 21px;
@@ -77,6 +87,11 @@
     color: #fff;
     border-radius: 25px;
     position: relative;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 23px;
 
     &--icon {
       position: absolute;
@@ -88,9 +103,10 @@
 
 .time {
   position: relative;
+
   &__text {
     margin: 54px 15px 104px 15px;
-    font-family: Bebas;
+    font-family: 'Bebas';
     font-style: normal;
     font-weight: 700;
     font-size: 25px;
@@ -99,28 +115,34 @@
     color: #FF96C5;
   }
 
-  &__remained {
+  &__clock--border {
     position: absolute;
-    top:30px;
-    left:0;
+    z-index: 2;
+    top: 33px;
+    left: 0;
     margin-left: 10px;
     width: 350px;
     height: 183px;
     border: 1px solid rgba(249, 114, 177, 0.7);
     border-radius: 13px;
-
-    &--background {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 12px;
-      margin-left: 15px;
-      width: 350px;
-      height: 183px;
-      background: #FFE9F3;
-      border-radius: 13px;
-    }
   }
+
+  &__clock--background {
+    position: absolute;
+    top: 45px;
+    left: 23px;
+    width: 350px;
+    height: 183px;
+    background: #FFE9F3;
+    border-radius: 13px;
+  }
+
+  &__cat {
+    position: absolute;
+    top: -33px;
+    left: 270px;
+  }
+
   &__bottom {
   }
 }
@@ -129,12 +151,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 325px;
 
   &__group {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 183px;
 
     &--buttons {
       display: flex;
@@ -160,13 +184,16 @@
     }
 
     &--desc {
+      margin-top: 5px;
       font-family: 'Montserrat';
       font-style: normal;
       font-weight: 300;
       font-size: 14px;
       line-height: 17px;
       text-align: center;
+      text-transform: uppercase;
       color: #7B7A79;
+      margin-left: 11px;
     }
   }
 
